@@ -51,7 +51,8 @@ export default function App() {
 
   // AI Models Config State (Elevated)
   const [models, setModels] = useState([
-    { id: 'm2', name: 'Gemma 4 E2B (Local LiteRT)', type: 'Local lightweight model', provider: 'Offline local browser worker', cost: 'Free / On-Device', latency: '120ms', isActive: true, downloaded: false },
+    { id: 'm1', name: 'Gemini 3.5 Flash (Cloud)', type: 'Primary cloud model', provider: 'Google Cloud Platform', cost: '$0.000075 / 1K tokens', latency: '420ms', isActive: true, downloaded: true },
+    { id: 'm2', name: 'Gemma 4 E2B (Local LiteRT)', type: 'Local lightweight model', provider: 'Offline local browser worker', cost: 'Free / On-Device', latency: '120ms', isActive: false, downloaded: false },
     { id: 'm3', name: 'VibeThinker 3B (Local LiteRT)', type: 'Advanced local reasoning model', provider: 'Offline local browser worker', cost: 'Free / On-Device', latency: '210ms', isActive: false, downloaded: false }
   ]);
 
@@ -156,7 +157,7 @@ export default function App() {
     setIsGemmaDownloading(false);
     setIsDownloadPaused(false);
     setDownloadLogs([]);
-    setModels(prev => prev.map((m, idx) => ({ ...m, downloaded: false, isActive: idx === 0 })));
+    setModels(prev => prev.map((m, idx) => ({ ...m, downloaded: m.id === 'm1' ? true : false, isActive: idx === 0 })));
   };
 
   // Initialize client if API Key exists
@@ -227,6 +228,44 @@ export default function App() {
         const warnText = `${activeModel.name} is currently selected but not yet loaded. Please go to 'Student Settings' or 'AI Brain Portal' to download and load the model on-device.`;
         callback(`*(System Alert)*\n\n${warnText}`);
         speakOutput(warnText);
+        return;
+      }
+    }
+
+    // Case 2: Active model is Gemini 3.5 Flash (Cloud)
+    if (activeModel.id === 'm1') {
+      if (!genAI) {
+        setIsThinking(false);
+        const warnText = "Gemini Cloud API is selected but no valid API Key is detected or configured. Please configure your GEMINI_API_KEY environment variable, or select a local model ('Gemma 4 E2B' or 'VibeThinker 3B') and download it for fully offline use.";
+        callback(`*(System Alert)*\n\n${warnText}`);
+        speakOutput(warnText);
+        return;
+      }
+      try {
+        console.log('Running Gemini Cloud inference...');
+        const response = await genAI.models.generateContent({
+          model: 'gemini-3.5-flash',
+          contents: prompt,
+          config: {
+            systemInstruction: systemPrompt
+          }
+        });
+        
+        setIsThinking(false);
+        if (response.text) {
+          const formattedResponse = `*(Answered by ${activeModel.name})*\n\n${response.text}`;
+          callback(formattedResponse);
+          speakOutput(response.text);
+        } else {
+          callback(`*(Answered by ${activeModel.name})*\n\nI processed your request but received no output.`);
+        }
+        return;
+      } catch (err: any) {
+        console.error('Gemini cloud query failed:', err);
+        setIsThinking(false);
+        const errorMsg = `Cloud inference execution encountered an issue: ${err?.message || String(err)}. Please check your network or ensure your GEMINI_API_KEY is correctly configured.`;
+        callback(`*(Cloud Model Error)*\n\n${errorMsg}`);
+        speakOutput(errorMsg);
         return;
       }
     }

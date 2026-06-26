@@ -375,6 +375,77 @@ export const AIBrainPortal: React.FC<AIBrainPortalProps> = ({
             })}
           </div>
 
+          {/* DEDICATED HUB FOR GEMINI 3.5 FLASH CLOUD MODEL */}
+          {selectedModel.id === 'm1' && (
+            <div className="bg-slate-950/80 border border-slate-800 rounded-3xl p-5 md:p-6 space-y-6 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+              
+              <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-900 pb-4 gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 bg-amber-500/10 rounded-2xl border border-amber-500/20 text-amber-500">
+                    <Sparkles className="w-5 h-5 animate-pulse" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-black text-white flex items-center gap-2">
+                      Gemini 3.5 Flash Cloud Orchestrator
+                      <span className="text-[9px] bg-amber-500/10 border border-amber-500/30 text-amber-500 px-2 py-0.5 rounded-full">Primary Cloud</span>
+                    </h4>
+                    <p className="text-[11px] text-slate-400 mt-0.5">High-speed reasoning model powered by Google AI Studio</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 shrink-0 border-l border-slate-900 pl-4">
+                  <span className="text-[10px] text-slate-500 font-mono">Documentation:</span>
+                  <a 
+                    href="https://ai.google.dev/gemini-api" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="text-[10px] text-amber-500 hover:text-amber-400 bg-amber-500/5 hover:bg-amber-500/10 border border-amber-500/20 rounded-lg px-2.5 py-1 flex items-center gap-1 transition font-mono"
+                  >
+                    Google AI Studio Developer <ExternalLink className="w-3 h-3 shrink-0" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                <div className="bg-slate-900/60 border border-slate-850 rounded-2xl p-4 space-y-3">
+                  <div className="flex items-center gap-2 text-white font-bold text-xs">
+                    <Server className="w-4 h-4 text-amber-500" />
+                    <span>Cloud Orchestration Strategy</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">
+                    Gemini 3.5 Flash operates as the centralized, high-intelligence development backend for OpenVidya. 
+                    It is highly optimized for complex workflows, JSON schemas, dynamic curriculum alignment, and high-quality Malayalee translation templates.
+                  </p>
+                  <div className="p-3 bg-slate-950 rounded-xl border border-slate-850/60 space-y-1.5 text-[10px] text-slate-500">
+                    <div className="flex justify-between">
+                      <span>Max Output Tokens:</span>
+                      <span className="text-slate-300 font-mono">8192 tokens</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Latency Profile:</span>
+                      <span className="text-slate-300 font-mono">420ms (Avg)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-slate-900/60 border border-slate-850 rounded-2xl p-4 space-y-3">
+                  <div className="flex items-center gap-2 text-white font-bold text-xs">
+                    <Sparkles className="w-4 h-4 text-amber-500" />
+                    <span>Interactive Lesson Studio Support</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400 leading-relaxed">
+                    By leveraging Gemini's extensive structured output framework, the <b>One-Click Lesson Studio</b> dynamically generates slides, quizzes, slides coordinate coordinates, and custom simulation plans directly within the sandbox.
+                  </p>
+                  <div className="p-3 bg-slate-950 rounded-xl border border-slate-850/60 flex items-center gap-2 text-[10px] text-amber-500">
+                    <Info className="w-4 h-4 shrink-0" />
+                    <span>Configured using your project environment variables.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* DEDICATED HUB FOR GEMMA 4 E2B ON-DEVICE MODEL */}
           {selectedModel.id === 'm2' && (
             <div className="bg-slate-950/80 border border-slate-800 rounded-3xl p-5 md:p-6 space-y-6 shadow-2xl relative overflow-hidden">

@@ -66,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({
         <Cpu className="w-3.5 h-3.5 text-amber-500 animate-pulse shrink-0" />
         <span className="text-slate-500 font-mono uppercase text-[8px] md:text-[9px] tracking-wider hidden sm:inline">Active AI:</span>
         <select
-          value={models.find(m => m.isActive)?.id || 'm2'}
+          value={models.find(m => m.isActive)?.id || 'm1'}
           onChange={(e) => onModelSelect(e.target.value)}
           className="bg-transparent text-white font-black hover:text-amber-400 focus:outline-none cursor-pointer pr-1 transition-colors text-[10px] md:text-[11px]"
         >

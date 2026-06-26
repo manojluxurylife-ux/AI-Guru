@@ -210,7 +210,18 @@ export const StudentSettings: React.FC<StudentSettingsProps> = ({
             </div>
           )}
           
-          {activeModel.downloaded ? (
+          {activeModel.id === 'm1' ? (
+            <div className="space-y-4">
+              <div className="p-4 bg-slate-950/40 border border-slate-900 rounded-2xl text-center space-y-2">
+                <p className="text-xs text-slate-300 leading-relaxed font-bold">
+                  Cloud Orchestration model (Gemini 3.5 Flash) is active!
+                </p>
+                <p className="text-[10px] text-slate-500 leading-normal">
+                  No local downloads are required to run in Cloud mode. Ensure your API key is configured in your project settings. You can switch to 'Gemma 4 E2B' or 'VibeThinker 3B' at any time to run fully on-device.
+                </p>
+              </div>
+            </div>
+          ) : activeModel.downloaded ? (
             <div className="space-y-3">
               <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs rounded-xl flex items-center justify-between gap-2 shadow-inner">
                 <span className="flex items-center gap-2">
